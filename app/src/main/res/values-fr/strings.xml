@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="go">Go !</string>
+    <string name="app_name">Comptes à rebours synchros</string>
+    <string name="notification_time">Horaire des notifications</string>
+    <string name="ok_go_confirmation">Go !</string>
+    <string name="message_go_confirmation">Annuler le précédent lancement et lancer un nouveau compte à rebours ?</string>
+    <string name="title_go_confirmation">Lancement du compte à rebours</string>
+    <string name="utils_time_format">HH:mm</string>
+    <string name="title_notification_time_picker">Heure des notifications</string>
+    <string name="title_countdown_delay">Délai</string>
+    <string name="title_countdown_duration">Durée</string>
+    <string name="title_countdown_label">Label</string>
+    <string name="ok">OK</string>
+    <string name="save_countdownitem_error">Erreur à l\'enregistrement du compte à rebours</string>
+    <string name="title_create_countdown_item">Nouveau compte à rebours</string>
+    <string name="no">Non merci</string>
+    <string name="message_countdown_delete_confirmation">Supprimer ce compte à rebours ?</string>
+    <string name="title_countdown_delete_confirmation">Suppression de compte à rebours</string>
+</resources>

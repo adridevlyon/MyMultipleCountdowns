@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:padding="5dp">
+
+    <EditText
+        android:id="@+id/create_countdown_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="false"
+        android:hint="@string/title_countdown_label"
+        app:layout_marginPercent="2%"
+        app:layout_widthPercent="46%" />
+
+    <EditText
+        android:id="@+id/create_countdown_delay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/create_countdown_label"
+        android:gravity="center"
+        android:hint="@string/title_countdown_delay"
+        android:inputType="number"
+        app:layout_marginPercent="2%"
+        app:layout_widthPercent="21%" />
+
+    <EditText
+        android:id="@+id/create_countdown_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/create_countdown_delay"
+        android:gravity="center"
+        android:hint="@string/title_countdown_duration"
+        android:inputType="number"
+        app:layout_marginPercent="2%"
+        app:layout_widthPercent="21%" />
+
+    <ImageView
+        android:id="@+id/imageview_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/create_countdown_label"
+        android:gravity="center"
+        app:layout_widthPercent="50%"
+        app:srcCompat="@drawable/cancel" />
+
+    <ImageView
+        android:id="@+id/imageview_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageview_cancel"
+        android:layout_toEndOf="@+id/imageview_cancel"
+        app:layout_widthPercent="50%"
+        app:srcCompat="@drawable/confirm" />
+
+</android.support.percent.PercentRelativeLayout>

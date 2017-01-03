@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Sync countdowns</string>
+    <string name="go">Go !</string>
+    <string name="notification_time">Notification Time</string>
+    <string name="title_go_confirmation">Launch countdown</string>
+    <string name="message_go_confirmation">Cancel previous launch and launch new countdown ?</string>
+    <string name="ok_go_confirmation">Go !</string>
+    <string name="utils_time_format">hh:mm a</string>
+    <string name="title_notification_time_picker">Time of the notifications</string>
+    <string name="title_countdown_label">Label</string>
+    <string name="title_countdown_delay">Delay</string>
+    <string name="title_countdown_duration">Duration</string>
+    <string name="save_countdownitem_error">Error during countdown save</string>
+    <string name="ok">OK</string>
+    <string name="title_create_countdown_item">New countdown</string>
+    <string name="no">No thanks</string>
+    <string name="title_countdown_delete_confirmation">Delete countdown</string>
+    <string name="message_countdown_delete_confirmation">Delete this countdown ?</string>
+</resources>
