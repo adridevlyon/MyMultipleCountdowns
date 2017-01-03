@@ -22,6 +22,7 @@ public class SharedPreferencesHelper {
     private static final int openMode = Context.MODE_PRIVATE;
     private static final String parametersFileName = "params";
     private static final String notificationTimeKey = "notificationTime";
+    private static final String lastLaunchDateKey = "lastLaunchDate";
 
     private static final String countdownItemsFileName = "items";
     private static final String countdownItemKey = "item_";
@@ -29,7 +30,9 @@ public class SharedPreferencesHelper {
     private static final int defaultNotificationHour = 10;
     private static final int defaultNotificationMinute = 0;
     private static final String defaultNotificationTime = "10:00";
-    private static final SimpleDateFormat storageDateFormat = new SimpleDateFormat("HH:mm");
+
+    private static final SimpleDateFormat storageTimeFormat = new SimpleDateFormat("HH:mm");
+    private static final SimpleDateFormat storageDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
     private static final ObjectMapper jsonMapper = new ObjectMapper();
 
@@ -39,18 +42,34 @@ public class SharedPreferencesHelper {
         String notificationTime = storedSettings.getString(notificationTimeKey, defaultNotificationTime);
         Date date;
         try {
-            date = storageDateFormat.parse(notificationTime);
+            date = storageTimeFormat.parse(notificationTime);
         } catch (ParseException e) {
             date = null;
         }
-        Calendar cal = Calendar.getInstance();
         if (date != null) {
-            cal.setTime(date);
+            return date;
         } else {
+            Calendar cal = Calendar.getInstance();
             cal.set(Calendar.HOUR_OF_DAY, defaultNotificationHour);
             cal.set(Calendar.MINUTE, defaultNotificationMinute);
+            return cal.getTime();
         }
-        return cal.getTime();
+    }
+
+    public static Date loadLastLaunchDate(Context context) {
+        SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
+
+        String lastLaunchDate = storedSettings.getString(lastLaunchDateKey, null);
+        if (lastLaunchDate == null) {
+            return null;
+        }
+        Date date;
+        try {
+            date = storageDateFormat.parse(lastLaunchDate);
+        } catch (ParseException e) {
+            date = null;
+        }
+        return date != null ? date : null;
     }
 
     public static List<CountdownItem> loadCountdownItems(Context context) {
@@ -75,7 +94,14 @@ public class SharedPreferencesHelper {
     public static void saveNotificationTime(Context context, Date date) {
         SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
         SharedPreferences.Editor editor = storedSettings.edit();
-        editor.putString(notificationTimeKey, storageDateFormat.format(date));
+        editor.putString(notificationTimeKey, storageTimeFormat.format(date));
+        editor.apply();
+    }
+
+    public static void saveLastLaunchDate(Context context, Date date) {
+        SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
+        SharedPreferences.Editor editor = storedSettings.edit();
+        editor.putString(lastLaunchDateKey, storageDateFormat.format(date));
         editor.apply();
     }
 

@@ -17,4 +17,7 @@
     <string name="no">Non merci</string>
     <string name="message_countdown_delete_confirmation">Supprimer ce compte à rebours ?</string>
     <string name="title_countdown_delete_confirmation">Suppression de compte à rebours</string>
+    <string name="utils_date_format">dd/MM/yyyy</string>
+    <string name="lastlaunch_label">Dernier lancement :</string>
+    <string name="lastlaunch_never">Jamais</string>
 </resources>

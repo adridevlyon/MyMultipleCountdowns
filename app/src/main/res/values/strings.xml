@@ -16,4 +16,7 @@
     <string name="no">No thanks</string>
     <string name="title_countdown_delete_confirmation">Delete countdown</string>
     <string name="message_countdown_delete_confirmation">Delete this countdown ?</string>
+    <string name="utils_date_format">yyyy/MM/dd</string>
+    <string name="lastlaunch_label">Last launch:</string>
+    <string name="lastlaunch_never" >Never</string>
 </resources>

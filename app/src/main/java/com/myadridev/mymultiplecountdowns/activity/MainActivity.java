@@ -28,23 +28,31 @@ import rx.subscriptions.Subscriptions;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String dateFormat;
-
     private CoordinatorLayout coordinatorLayout;
     private Button buttonGo;
     private TableRow tableRowNotificationTime;
     private TextView textViewNotificationTime;
+    private TextView textViewLastLaunchDate;
     private RecyclerView recyclerViewCountdownList;
 
-    private Calendar cal = Calendar.getInstance();
     private Date notificationTime;
+
+    private Date lastLaunchDate;
+
     private SimpleDateFormat timeFormat;
+
+    private SimpleDateFormat dateFormat;
+    private boolean is24HoursFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dateFormat = getString(R.string.utils_time_format);
-        timeFormat = new SimpleDateFormat(dateFormat);
+        String timeFormatString = getString(R.string.utils_time_format);
+        timeFormat = new SimpleDateFormat(timeFormatString);
+        is24HoursFormat = !timeFormatString.endsWith("a");
+
+        String dateFormatString = getString(R.string.utils_date_format);
+        dateFormat = new SimpleDateFormat(dateFormatString);
 
         setLayout();
         setEvents();
@@ -57,11 +65,13 @@ public class MainActivity extends AppCompatActivity {
         buttonGo = (Button) findViewById(R.id.button_go);
         textViewNotificationTime = (TextView) findViewById(R.id.textview_notification_time);
         tableRowNotificationTime = (TableRow) findViewById(R.id.tablerow_notification_time);
+        textViewLastLaunchDate = (TextView) findViewById(R.id.textview_lastlaunch_date);
         recyclerViewCountdownList = (RecyclerView) findViewById(R.id.recyclerview_countdown_list);
     }
 
     private void loadStoredData() {
         setNotificationTime(SharedPreferencesHelper.loadNotificationTime(this));
+        setLastLaunchDate(SharedPreferencesHelper.loadLastLaunchDate(this));
 
         recyclerViewCountdownList.setLayoutManager(new LinearLayoutManager(this));
         CountdownItemsAdapter recyclerViewCountdownAdapter = new CountdownItemsAdapter(this, coordinatorLayout, SharedPreferencesHelper.loadCountdownItems(this));
@@ -72,22 +82,40 @@ public class MainActivity extends AppCompatActivity {
         RxView.clicks(buttonGo)
                 .flatMap(x -> DialogHelper.displayAlertDialog(this, R.string.title_go_confirmation, R.string.message_go_confirmation, R.string.ok_go_confirmation, R.string.no))
                 .filter(x -> x)
-                .subscribe(x -> restartCountdownJobs());
+                .subscribe(x -> saveLastLaunchDay());
 
         RxView.clicks(tableRowNotificationTime)
-                .flatMap(x -> displayDatePickerDialog(this, R.string.title_notification_time_picker, !dateFormat.endsWith("a")))
+                .flatMap(x -> displayDatePickerDialog(this, R.string.title_notification_time_picker, is24HoursFormat))
                 .subscribe(this::updateNotificationDate);
     }
 
     private void updateNotificationDate(Date date) {
-        setNotificationTime(date);
         SharedPreferencesHelper.saveNotificationTime(this, date);
+        setNotificationTime(date);
         restartCountdownJobs();
     }
 
     private void setNotificationTime(Date date) {
         notificationTime = date;
         textViewNotificationTime.setText(timeFormat.format(date));
+    }
+
+    private void setLastLaunchDate(Date date) {
+        lastLaunchDate = date;
+        textViewLastLaunchDate.setText(date != null ? dateFormat.format(date) : getString(R.string.lastlaunch_never));
+    }
+
+    private void saveLastLaunchDay() {
+        Calendar cal = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(notificationTime);
+        cal.set(Calendar.HOUR_OF_DAY, cal2.get(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, cal2.get(Calendar.MINUTE));
+
+        Date lastLaunchDate = cal.getTime();
+        SharedPreferencesHelper.saveLastLaunchDate(this, lastLaunchDate);
+        setLastLaunchDate(lastLaunchDate);
+        restartCountdownJobs();
     }
 
     private void restartCountdownJobs() {
@@ -98,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Observable<Date> displayDatePickerDialog(Context context, int title, boolean is24HoursFormat) {
         return Observable.create((Subscriber<? super Date> subscriber) -> {
+            Calendar cal = Calendar.getInstance();
             cal.setTime(notificationTime);
 
             int hour = cal.get(Calendar.HOUR_OF_DAY);
