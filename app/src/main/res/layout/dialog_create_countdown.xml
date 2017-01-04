@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="false"
         android:hint="@string/title_countdown_label"
-        app:layout_marginPercent="2%"
-        app:layout_widthPercent="46%" />
+        app:layout_marginPercent="1%"
+        app:layout_widthPercent="44%" />
 
     <EditText
         android:id="@+id/create_countdown_delay"
@@ -23,8 +23,8 @@
         android:gravity="center"
         android:hint="@string/title_countdown_delay"
         android:inputType="number"
-        app:layout_marginPercent="2%"
-        app:layout_widthPercent="21%" />
+        app:layout_marginPercent="1%"
+        app:layout_widthPercent="25%" />
 
     <EditText
         android:id="@+id/create_countdown_duration"
@@ -34,8 +34,8 @@
         android:gravity="center"
         android:hint="@string/title_countdown_duration"
         android:inputType="number"
-        app:layout_marginPercent="2%"
-        app:layout_widthPercent="21%" />
+        app:layout_marginPercent="1%"
+        app:layout_widthPercent="25%" />
 
     <ImageView
         android:id="@+id/imageview_cancel"
