@@ -2,6 +2,7 @@ package com.myadridev.mymultiplecountdowns.activity;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,13 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.myadridev.mymultiplecountdowns.R;
 import com.myadridev.mymultiplecountdowns.adapter.CountdownItemsAdapter;
 import com.myadridev.mymultiplecountdowns.helper.DialogHelper;
 import com.myadridev.mymultiplecountdowns.helper.SharedPreferencesHelper;
+import com.myadridev.mymultiplecountdowns.service.AutoStartService;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -119,9 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void restartCountdownJobs() {
-        // TODO : update jobs
-        Toast.makeText(this, "Restart jobs !", Toast.LENGTH_SHORT).show();
-//        startService(new Intent(this, AutoStartService.class));
+        startService(new Intent(this, AutoStartService.class));
     }
 
     private Observable<Date> displayDatePickerDialog(Context context, int title, boolean is24HoursFormat) {

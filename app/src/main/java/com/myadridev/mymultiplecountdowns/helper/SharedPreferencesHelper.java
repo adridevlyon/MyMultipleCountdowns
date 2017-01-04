@@ -91,6 +91,19 @@ public class SharedPreferencesHelper {
         return items;
     }
 
+    public static CountdownItem getCountdownItem(Context context, int itemId) {
+        SharedPreferences storedSettings = context.getSharedPreferences(countdownItemsFileName, openMode);
+        String storedItem = storedSettings.getString(countdownItemKey + itemId, null);
+        if (storedItem != null && !storedItem.isEmpty()) {
+            try {
+                return jsonMapper.readValue(storedItem, CountdownItem.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
     public static void saveNotificationTime(Context context, Date date) {
         SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
         SharedPreferences.Editor editor = storedSettings.edit();

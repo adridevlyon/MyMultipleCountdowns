@@ -8,8 +8,8 @@
     <string name="utils_time_format">hh:mm a</string>
     <string name="title_notification_time_picker">Time of the notifications</string>
     <string name="title_countdown_label">Label</string>
-    <string name="title_countdown_delay">Delay</string>
-    <string name="title_countdown_duration">Duration</string>
+    <string name="title_countdown_delay">Delay (d)</string>
+    <string name="title_countdown_duration">Duration (d)</string>
     <string name="save_countdownitem_error">Error during countdown save</string>
     <string name="ok">OK</string>
     <string name="title_create_countdown_item">New countdown</string>
@@ -19,4 +19,5 @@
     <string name="utils_date_format">yyyy/MM/dd</string>
     <string name="lastlaunch_label">Last launch:</string>
     <string name="lastlaunch_never" >Never</string>
+    <string name="notification_day">Day %1$d/%2$d</string>
 </resources>
