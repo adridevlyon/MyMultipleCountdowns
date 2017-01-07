@@ -18,18 +18,24 @@ import java.util.List;
 
 public class AutoStartService extends Service {
     private JobScheduler jobScheduler;
+    private int jobId;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Date lastLaunchDate = SharedPreferencesHelper.loadLastLaunchDate(this);
+        int numberJobsLaunched = SharedPreferencesHelper.loadNumberJobsLaunched(this);
         if (lastLaunchDate == null) {
             return Service.START_STICKY;
         }
 
         jobScheduler = (JobScheduler) getApplication().getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
-        jobScheduler.cancelAll();
+        for (int i = 0; i < numberJobsLaunched; i++) {
+            jobScheduler.cancel(i);
+        }
+        jobId = 0;
         launchNeededScheduledJobs(SharedPreferencesHelper.loadCountdownItems(this), lastLaunchDate);
+        SharedPreferencesHelper.saveNumberJobsLaunched(this, jobId);
 
         return Service.START_STICKY;
     }
@@ -55,20 +61,21 @@ public class AutoStartService extends Service {
         for (int i = 0; i < item.duration; i++) {
             if (calNow.after(calNextLaunchDate)) {
                 continue;
-            } else {
-                ComponentName serviceComponent = new ComponentName(this, CountdownJobService.class);
-                JobInfo.Builder builder = new JobInfo.Builder(item.id, serviceComponent);
-                long delayBeforeLaunch = Math.max(0, calNextLaunchDate.getTimeInMillis() - calNow.getTimeInMillis());
-                PersistableBundle extras = new PersistableBundle(2);
-                extras.putInt(CountdownJobService.dayKey, i + 1);
-                extras.putInt(CountdownJobService.dayMaxKey, item.duration);
-                builder.setExtras(extras);
-                builder.setMinimumLatency(delayBeforeLaunch);
-                builder.setOverrideDeadline(delayBeforeLaunch);
-
-                jobScheduler.schedule(builder.build());
-                calNextLaunchDate.add(Calendar.DATE, 1);
             }
+            ComponentName serviceComponent = new ComponentName(this, CountdownJobService.class);
+            JobInfo.Builder builder = new JobInfo.Builder(jobId, serviceComponent);
+            jobId++;
+            long delayBeforeLaunch = Math.max(0, calNextLaunchDate.getTimeInMillis() - calNow.getTimeInMillis());
+            PersistableBundle extras = new PersistableBundle(2);
+            extras.putInt(CountdownJobService.idKey, item.id);
+            extras.putInt(CountdownJobService.dayKey, i + 1);
+            extras.putInt(CountdownJobService.dayMaxKey, item.duration);
+            builder.setExtras(extras);
+            builder.setMinimumLatency(delayBeforeLaunch);
+            builder.setOverrideDeadline(delayBeforeLaunch);
+
+            jobScheduler.schedule(builder.build());
+            calNextLaunchDate.add(Calendar.DATE, 1);
         }
     }
 

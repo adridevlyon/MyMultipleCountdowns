@@ -8,6 +8,7 @@ import android.app.job.JobService;
 import android.content.Intent;
 import android.os.PersistableBundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.myadridev.mymultiplecountdowns.R;
 import com.myadridev.mymultiplecountdowns.activity.MainActivity;
@@ -17,23 +18,26 @@ import com.myadridev.mymultiplecountdowns.model.CountdownItem;
 public class CountdownJobService extends JobService {
     public static final String dayKey = "dayKey";
     public static final String dayMaxKey = "dayMaxKey";
+    public static final String idKey = "idKey";
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        int itemId = params.getJobId();
+        int jobId = params.getJobId();
         PersistableBundle extras = params.getExtras();
         int day = extras.getInt(dayKey);
         int maxDay = extras.getInt(dayMaxKey);
+        int itemId = extras.getInt(idKey);
         CountdownItem item = SharedPreferencesHelper.getCountdownItem(this, itemId);
         if (item == null) {
             return false;
         }
         Intent resultIntent = new Intent(this, MainActivity.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, jobId, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         String notificationContent = getString(R.string.notification_day, day, maxDay);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_notification)
+                .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .setContentTitle(item.label)
                 .setContentText(notificationContent)
                 .setContentIntent(resultPendingIntent)
@@ -44,7 +48,7 @@ public class CountdownJobService extends JobService {
         notification.defaults |= Notification.DEFAULT_ALL;
 
         NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mNotifyMgr.notify(notificationContent, itemId, notification);
+        mNotifyMgr.notify(jobId, notification);
         return false;
     }
 

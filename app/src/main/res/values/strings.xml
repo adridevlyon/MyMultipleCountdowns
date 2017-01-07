@@ -18,6 +18,8 @@
     <string name="message_countdown_delete_confirmation">Delete this countdown ?</string>
     <string name="utils_date_format">yyyy/MM/dd</string>
     <string name="lastlaunch_label">Last launch:</string>
-    <string name="lastlaunch_never" >Never</string>
+    <string name="lastlaunch_never">Never</string>
     <string name="notification_day">Day %1$d/%2$d</string>
+    <string name="countdown_launched">Countdowns launched !</string>
+    <string name="countdown_updated">Countdowns updated (new notification time) !</string>
 </resources>

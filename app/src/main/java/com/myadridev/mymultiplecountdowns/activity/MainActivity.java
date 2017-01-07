@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -93,7 +94,16 @@ public class MainActivity extends AppCompatActivity {
     private void updateNotificationDate(Date date) {
         SharedPreferencesHelper.saveNotificationTime(this, date);
         setNotificationTime(date);
-        restartCountdownJobs();
+        if (lastLaunchDate != null) {
+            saveLastLaunchDay(lastLaunchDate);
+            displaySnackbar(getString(R.string.countdown_updated));
+        }
+    }
+
+    private void displaySnackbar(String message) {
+        final Snackbar snackbar = Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG);
+        snackbar.setAction(getString(R.string.ok), v -> snackbar.dismiss());
+        snackbar.show();
     }
 
     private void setNotificationTime(Date date) {
@@ -106,17 +116,25 @@ public class MainActivity extends AppCompatActivity {
         textViewLastLaunchDate.setText(date != null ? dateFormat.format(date) : getString(R.string.lastlaunch_never));
     }
 
-    private void saveLastLaunchDay() {
+    private void saveLastLaunchDay(Date lastLaunchDate) {
         Calendar cal = Calendar.getInstance();
+        cal.setTime(lastLaunchDate);
+
         Calendar cal2 = Calendar.getInstance();
         cal2.setTime(notificationTime);
         cal.set(Calendar.HOUR_OF_DAY, cal2.get(Calendar.HOUR_OF_DAY));
         cal.set(Calendar.MINUTE, cal2.get(Calendar.MINUTE));
 
-        Date lastLaunchDate = cal.getTime();
-        SharedPreferencesHelper.saveLastLaunchDate(this, lastLaunchDate);
-        setLastLaunchDate(lastLaunchDate);
+        Date newLastLaunchDate = cal.getTime();
+        SharedPreferencesHelper.saveLastLaunchDate(this, newLastLaunchDate);
+        setLastLaunchDate(newLastLaunchDate);
         restartCountdownJobs();
+    }
+
+    private void saveLastLaunchDay() {
+        Calendar cal = Calendar.getInstance();
+        saveLastLaunchDay(cal.getTime());
+        displaySnackbar(getString(R.string.countdown_launched));
     }
 
     private void restartCountdownJobs() {

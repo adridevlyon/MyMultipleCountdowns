@@ -23,6 +23,7 @@ public class SharedPreferencesHelper {
     private static final String parametersFileName = "params";
     private static final String notificationTimeKey = "notificationTime";
     private static final String lastLaunchDateKey = "lastLaunchDate";
+    private static final String numberJobsLaunchedKey = "numberJobsLaunched";
 
     private static final String countdownItemsFileName = "items";
     private static final String countdownItemKey = "item_";
@@ -38,7 +39,6 @@ public class SharedPreferencesHelper {
 
     public static Date loadNotificationTime(Context context) {
         SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
-
         String notificationTime = storedSettings.getString(notificationTimeKey, defaultNotificationTime);
         Date date;
         try {
@@ -58,7 +58,6 @@ public class SharedPreferencesHelper {
 
     public static Date loadLastLaunchDate(Context context) {
         SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
-
         String lastLaunchDate = storedSettings.getString(lastLaunchDateKey, null);
         if (lastLaunchDate == null) {
             return null;
@@ -104,6 +103,11 @@ public class SharedPreferencesHelper {
         return null;
     }
 
+    public static int loadNumberJobsLaunched(Context context) {
+        SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
+        return storedSettings.getInt(numberJobsLaunchedKey, 0);
+    }
+
     public static void saveNotificationTime(Context context, Date date) {
         SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
         SharedPreferences.Editor editor = storedSettings.edit();
@@ -132,6 +136,13 @@ public class SharedPreferencesHelper {
         editor.putString(countdownItemKey + item.id, itemAsJson);
         editor.apply();
         return true;
+    }
+
+    public static void saveNumberJobsLaunched(Context context, int numberJobsLaunched) {
+        SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
+        SharedPreferences.Editor editor = storedSettings.edit();
+        editor.putInt(numberJobsLaunchedKey, numberJobsLaunched);
+        editor.apply();
     }
 
     public static void removeCountdownItem(Context context, int itemId) {
