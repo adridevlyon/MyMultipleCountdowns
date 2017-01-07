@@ -94,7 +94,7 @@ public class CountdownItemsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     .flatMap(x -> displayEditItemDialog(context, position, new CountdownItem()))
                     .filter(x -> x != null)
                     .flatMap(this::saveCountdownItem)
-                    .subscribe(this::addDisplayedCountdownItem, e -> displayError(e.getMessage()));
+                    .subscribe(x -> addDisplayedCountdownItem(position, x), e -> displayError(e.getMessage()));
         } else {
             // item
             CountdownItemViewHolder itemHolder = (CountdownItemViewHolder) holder;
@@ -174,8 +174,8 @@ public class CountdownItemsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         });
     }
 
-    private void addDisplayedCountdownItem(CountdownItem item) {
-        countdownItems.add(item);
+    private void addDisplayedCountdownItem(int position, CountdownItem item) {
+        countdownItems.add(position - 1, item);
         notifyDataSetChanged();
     }
 

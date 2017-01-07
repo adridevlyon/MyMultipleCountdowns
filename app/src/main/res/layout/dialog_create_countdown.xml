@@ -17,7 +17,7 @@
 
     <EditText
         android:id="@+id/create_countdown_delay"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/create_countdown_label"
         android:gravity="center"
@@ -28,7 +28,7 @@
 
     <EditText
         android:id="@+id/create_countdown_duration"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/create_countdown_delay"
         android:gravity="center"
@@ -43,8 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/create_countdown_label"
         android:gravity="center"
-        app:layout_widthPercent="50%"
-        app:srcCompat="@drawable/cancel" />
+        android:src="@drawable/cancel"
+        app:layout_widthPercent="50%" />
 
     <ImageView
         android:id="@+id/imageview_confirm"
@@ -52,7 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageview_cancel"
         android:layout_toEndOf="@+id/imageview_cancel"
-        app:layout_widthPercent="50%"
-        app:srcCompat="@drawable/confirm" />
+        android:gravity="center"
+        android:src="@drawable/confirm"
+        app:layout_widthPercent="50%" />
 
 </android.support.percent.PercentRelativeLayout>

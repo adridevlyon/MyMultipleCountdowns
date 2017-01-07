@@ -13,50 +13,50 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
-        android:text="Label"
         app:layout_marginRightPercent="2%"
         app:layout_widthPercent="32%" />
 
     <TextView
         android:id="@+id/countdown_delay"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/countdown_label"
         android:gravity="center"
-        android:text="Delay"
         app:layout_marginRightPercent="2%"
         app:layout_widthPercent="25%" />
 
     <TextView
         android:id="@+id/countdown_duration"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/countdown_delay"
         android:gravity="center"
-        android:text="Duration"
         app:layout_marginRightPercent="2%"
         app:layout_widthPercent="25%" />
 
     <ImageView
         android:id="@+id/countdown_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/countdown_duration"
-        app:layout_marginRightPercent="2%"
-        app:layout_widthPercent="9%"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        android:adjustViewBounds="true"
+        android:src="@drawable/edit"
+        app:layout_marginRightPercent="1%"
+        app:layout_widthPercent="5%" />
 
     <ImageView
         android:id="@+id/countdown_delete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/countdown_edit"
-        app:layout_widthPercent="1%"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        android:adjustViewBounds="true"
+        android:src="@drawable/cancel"
+        app:layout_marginLeftPercent="1%"
+        app:layout_widthPercent="5%" />
 
 </android.support.percent.PercentRelativeLayout>
