@@ -19,6 +19,7 @@ import com.myadridev.mymultiplecountdowns.adapter.CountdownItemsAdapter;
 import com.myadridev.mymultiplecountdowns.helper.DialogHelper;
 import com.myadridev.mymultiplecountdowns.helper.SharedPreferencesHelper;
 import com.myadridev.mymultiplecountdowns.service.AutoStartService;
+import com.myadridev.mymultiplecountdowns.service.CancelAllService;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CoordinatorLayout coordinatorLayout;
     private Button buttonGo;
+    private Button buttonCancel;
     private TableRow tableRowNotificationTime;
     private TextView textViewNotificationTime;
     private TextView textViewLastLaunchDate;
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
         buttonGo = (Button) findViewById(R.id.button_go);
+        buttonCancel = (Button) findViewById(R.id.button_cancel);
         textViewNotificationTime = (TextView) findViewById(R.id.textview_notification_time);
         tableRowNotificationTime = (TableRow) findViewById(R.id.tablerow_notification_time);
         textViewLastLaunchDate = (TextView) findViewById(R.id.textview_lastlaunch_date);
@@ -85,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
                 .flatMap(x -> DialogHelper.displayAlertDialog(this, R.string.title_go_confirmation, R.string.message_go_confirmation, R.string.ok_go_confirmation, R.string.no))
                 .filter(x -> x)
                 .subscribe(x -> saveLastLaunchDay());
+
+        RxView.clicks(buttonCancel)
+                .flatMap(x -> DialogHelper.displayAlertDialog(this, R.string.title_cancel_confirmation, R.string.message_cancel_confirmation, R.string.ok_cancel_confirmation, R.string.no))
+                .filter(x -> x)
+                .subscribe(x -> cancelAllJobs());
 
         RxView.clicks(tableRowNotificationTime)
                 .flatMap(x -> displayDatePickerDialog(this, R.string.title_notification_time_picker, is24HoursFormat))
@@ -139,6 +147,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void restartCountdownJobs() {
         startService(new Intent(this, AutoStartService.class));
+    }
+
+    private void cancelAllJobs() {
+        SharedPreferencesHelper.saveLastLaunchDate(this, null);
+        setLastLaunchDate(null);
+        startService(new Intent(this, CancelAllService.class));
+        displaySnackbar(getString(R.string.countdown_cancelled));
     }
 
     private Observable<Date> displayDatePickerDialog(Context context, int title, boolean is24HoursFormat) {

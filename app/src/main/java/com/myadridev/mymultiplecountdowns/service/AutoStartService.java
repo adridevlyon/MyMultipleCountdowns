@@ -23,7 +23,7 @@ public class AutoStartService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Date lastLaunchDate = SharedPreferencesHelper.loadLastLaunchDate(this);
-        int numberJobsLaunched = SharedPreferencesHelper.loadNumberJobsLaunched(this);
+        int numberJobsLaunched = SharedPreferencesHelper.loadNumberActiveJobs(this);
         if (lastLaunchDate == null) {
             return Service.START_STICKY;
         }
@@ -35,7 +35,7 @@ public class AutoStartService extends Service {
         }
         jobId = 0;
         launchNeededScheduledJobs(SharedPreferencesHelper.loadCountdownItems(this), lastLaunchDate);
-        SharedPreferencesHelper.saveNumberJobsLaunched(this, jobId);
+        SharedPreferencesHelper.saveNumberActiveJobs(this, jobId);
 
         return Service.START_STICKY;
     }

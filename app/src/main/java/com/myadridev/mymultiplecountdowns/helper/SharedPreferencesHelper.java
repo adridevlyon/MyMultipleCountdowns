@@ -23,7 +23,7 @@ public class SharedPreferencesHelper {
     private static final String parametersFileName = "params";
     private static final String notificationTimeKey = "notificationTime";
     private static final String lastLaunchDateKey = "lastLaunchDate";
-    private static final String numberJobsLaunchedKey = "numberJobsLaunched";
+    private static final String numberActiveJobsKey = "numberActiveJobs";
 
     private static final String countdownItemsFileName = "items";
     private static final String countdownItemKey = "item_";
@@ -103,9 +103,9 @@ public class SharedPreferencesHelper {
         return null;
     }
 
-    public static int loadNumberJobsLaunched(Context context) {
+    public static int loadNumberActiveJobs(Context context) {
         SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
-        return storedSettings.getInt(numberJobsLaunchedKey, 0);
+        return storedSettings.getInt(numberActiveJobsKey, 0);
     }
 
     public static void saveNotificationTime(Context context, Date date) {
@@ -118,7 +118,7 @@ public class SharedPreferencesHelper {
     public static void saveLastLaunchDate(Context context, Date date) {
         SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
         SharedPreferences.Editor editor = storedSettings.edit();
-        editor.putString(lastLaunchDateKey, storageDateFormat.format(date));
+        editor.putString(lastLaunchDateKey, date != null ? storageDateFormat.format(date) : null);
         editor.apply();
     }
 
@@ -138,10 +138,10 @@ public class SharedPreferencesHelper {
         return true;
     }
 
-    public static void saveNumberJobsLaunched(Context context, int numberJobsLaunched) {
+    public static void saveNumberActiveJobs(Context context, int numberJobsLaunched) {
         SharedPreferences storedSettings = context.getSharedPreferences(parametersFileName, openMode);
         SharedPreferences.Editor editor = storedSettings.edit();
-        editor.putInt(numberJobsLaunchedKey, numberJobsLaunched);
+        editor.putInt(numberActiveJobsKey, numberJobsLaunched);
         editor.apply();
     }
 

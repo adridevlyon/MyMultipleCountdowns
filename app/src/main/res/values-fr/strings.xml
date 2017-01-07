@@ -4,7 +4,7 @@
     <string name="app_name">Synchro comptes à rebours</string>
     <string name="notification_time">Horaire des notifications</string>
     <string name="ok_go_confirmation">Go !</string>
-    <string name="message_go_confirmation">Annuler le précédent lancement et lancer un nouveau compte à rebours ?</string>
+    <string name="message_go_confirmation">Annuler tous les comptes à rebours actifs et les lancer à nouveau ?</string>
     <string name="title_go_confirmation">Lancement du compte à rebours</string>
     <string name="utils_time_format">HH:mm</string>
     <string name="title_notification_time_picker">Heure des notifications</string>
@@ -23,4 +23,9 @@
     <string name="notification_day">Jour %1$d/%2$d</string>
     <string name="countdown_launched">Comptes à rebours déclenchés !</string>
     <string name="countdown_updated">Comptes à rebours mis à jour (nouvelle heure de notification) !</string>
+    <string name="countdown_cancelled">Comptes à rebours annulés !</string>
+    <string name="message_cancel_confirmation">Annuler tous les comptes à rebours actifs ?</string>
+    <string name="ok_cancel_confirmation">Tout annuler !</string>
+    <string name="title_cancel_confirmation">Annuler les comptes à rebours</string>
+    <string name="cancel">Annuler tous !</string>
 </resources>

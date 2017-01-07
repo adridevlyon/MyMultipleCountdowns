@@ -3,7 +3,7 @@
     <string name="go">Go !</string>
     <string name="notification_time">Notification Time</string>
     <string name="title_go_confirmation">Launch countdown</string>
-    <string name="message_go_confirmation">Cancel previous launch and launch new countdown ?</string>
+    <string name="message_go_confirmation">Cancel all active countdowns and launch them again ?</string>
     <string name="ok_go_confirmation">Go !</string>
     <string name="utils_time_format">hh:mm a</string>
     <string name="title_notification_time_picker">Time of the notifications</string>
@@ -22,4 +22,9 @@
     <string name="notification_day">Day %1$d/%2$d</string>
     <string name="countdown_launched">Countdowns launched !</string>
     <string name="countdown_updated">Countdowns updated (new notification time) !</string>
+    <string name="countdown_cancelled" >Countdowns cancelled !</string>
+    <string name="title_cancel_confirmation" >Cancel countdowns</string>
+    <string name="message_cancel_confirmation" >Cancel all active countdowns ?</string>
+    <string name="ok_cancel_confirmation" >Cancel all !</string>
+    <string name="cancel" >Cancel all !</string>
 </resources>
