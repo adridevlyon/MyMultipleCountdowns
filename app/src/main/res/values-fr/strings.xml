@@ -8,9 +8,9 @@
     <string name="title_go_confirmation">Lancement du compte à rebours</string>
     <string name="utils_time_format">HH:mm</string>
     <string name="title_notification_time_picker">Heure des notifications</string>
-    <string name="title_countdown_delay">Délai (j)</string>
-    <string name="title_countdown_duration">Durée (j)</string>
-    <string name="title_countdown_label">Label</string>
+    <string name="title_countdown_delay">Délai (jours) avant 1ère notification</string>
+    <string name="title_countdown_duration">Nombre de jours à notifier</string>
+    <string name="title_countdown_label">Libellé</string>
     <string name="ok">OK</string>
     <string name="save_countdownitem_error">Erreur à l\'enregistrement du compte à rebours</string>
     <string name="title_create_countdown_item">Nouveau compte à rebours</string>

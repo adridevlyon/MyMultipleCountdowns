@@ -8,8 +8,8 @@
     <string name="utils_time_format">hh:mm a</string>
     <string name="title_notification_time_picker">Time of the notifications</string>
     <string name="title_countdown_label">Label</string>
-    <string name="title_countdown_delay">Delay (d)</string>
-    <string name="title_countdown_duration">Duration (d)</string>
+    <string name="title_countdown_delay">Delay (days) before 1st notification</string>
+    <string name="title_countdown_duration">Number of days to notify</string>
     <string name="save_countdownitem_error">Error during countdown save</string>
     <string name="ok">OK</string>
     <string name="title_create_countdown_item">New countdown</string>
