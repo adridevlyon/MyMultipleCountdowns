@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/header_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableRow
+        android:id="@+id/tablerow_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/button_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:text="@string/go"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:text="@string/cancel"
+            android:textAlignment="center" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tablerow_notification_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tablerow_actions"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/imageview_notification_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:clickable="false"
+            android:src="@android:drawable/ic_lock_idle_alarm" />
+
+        <TextView
+            android:id="@+id/textview_notification_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:clickable="false"
+            android:text="10:00" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tablerow_lastlaunch_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tablerow_notification_time"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/textview_lastlaunch_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/lastlaunch_label" />
+
+        <TextView
+            android:id="@+id/textview_lastlaunch_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/lastlaunch_never" />
+    </TableRow>
+
+</RelativeLayout>
