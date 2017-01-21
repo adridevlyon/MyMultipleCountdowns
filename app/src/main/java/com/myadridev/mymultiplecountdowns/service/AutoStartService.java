@@ -19,6 +19,7 @@ import java.util.List;
 public class AutoStartService extends Service {
     private JobScheduler jobScheduler;
     private int jobId;
+    private final int numberMinutesInADay = 1440;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -45,7 +46,7 @@ public class AutoStartService extends Service {
             Calendar calNow = Calendar.getInstance();
             Calendar calLastDayItem = Calendar.getInstance();
             calLastDayItem.setTime(lastLaunchDate);
-            calLastDayItem.add(Calendar.DATE, item.delay + item.duration - 1);
+            calLastDayItem.add(Calendar.MINUTE, numberMinutesInADay * (item.delay + item.duration - 1));
             if (calNow.before(calLastDayItem)) {
                 launchScheduledJob(item, lastLaunchDate);
             }
@@ -56,7 +57,7 @@ public class AutoStartService extends Service {
         Calendar calNow = Calendar.getInstance();
         Calendar calNextLaunchDate = Calendar.getInstance();
         calNextLaunchDate.setTime(lastLaunchDate);
-        calNextLaunchDate.add(Calendar.DATE, item.delay);
+        calNextLaunchDate.add(Calendar.MINUTE, numberMinutesInADay * item.delay);
 
         for (int i = 0; i < item.duration; i++) {
             if (calNow.after(calNextLaunchDate)) {
@@ -66,7 +67,7 @@ public class AutoStartService extends Service {
             JobInfo.Builder builder = new JobInfo.Builder(jobId, serviceComponent);
             jobId++;
             long delayBeforeLaunch = Math.max(0, calNextLaunchDate.getTimeInMillis() - calNow.getTimeInMillis());
-            PersistableBundle extras = new PersistableBundle(2);
+            PersistableBundle extras = new PersistableBundle(3);
             extras.putInt(CountdownJobService.idKey, item.id);
             extras.putInt(CountdownJobService.dayKey, i + 1);
             extras.putInt(CountdownJobService.dayMaxKey, item.duration);
@@ -75,7 +76,7 @@ public class AutoStartService extends Service {
             builder.setOverrideDeadline(delayBeforeLaunch);
 
             jobScheduler.schedule(builder.build());
-            calNextLaunchDate.add(Calendar.DATE, 1);
+            calNextLaunchDate.add(Calendar.MINUTE, numberMinutesInADay);
         }
     }
 
