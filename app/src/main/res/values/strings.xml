@@ -22,9 +22,10 @@
     <string name="notification_day">Day %1$d/%2$d</string>
     <string name="countdown_launched">Countdowns launched !</string>
     <string name="countdown_updated">Countdowns updated (new notification time) !</string>
-    <string name="countdown_cancelled" >Countdowns cancelled !</string>
-    <string name="title_cancel_confirmation" >Cancel countdowns</string>
-    <string name="message_cancel_confirmation" >Cancel all active countdowns ?</string>
-    <string name="ok_cancel_confirmation" >Cancel all !</string>
-    <string name="cancel" >Cancel all !</string>
+    <string name="countdown_cancelled">Countdowns cancelled !</string>
+    <string name="title_cancel_confirmation">Cancel countdowns</string>
+    <string name="message_cancel_confirmation">Cancel all active countdowns ?</string>
+    <string name="ok_cancel_confirmation">Cancel all !</string>
+    <string name="cancel">Cancel all !</string>
+    <string name="notification_updated" >Notification time will be updated after next countdown re-launch</string>
 </resources>

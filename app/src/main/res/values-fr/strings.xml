@@ -28,4 +28,5 @@
     <string name="ok_cancel_confirmation">Tout annuler !</string>
     <string name="title_cancel_confirmation">Annuler les comptes à rebours</string>
     <string name="cancel">Annuler tous !</string>
+    <string name="notification_updated">L\'horaire des notifications sera mis à jour au prochain lancement des comptes à rebours</string>
 </resources>

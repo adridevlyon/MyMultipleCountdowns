@@ -19,7 +19,7 @@ import java.util.List;
 public class AutoStartService extends Service {
     private JobScheduler jobScheduler;
     private int jobId;
-    private final int numberMinutesInADay = 1440;
+    public static final int NumberMinutesInADay = 1440;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -46,7 +46,7 @@ public class AutoStartService extends Service {
             Calendar calNow = Calendar.getInstance();
             Calendar calLastDayItem = Calendar.getInstance();
             calLastDayItem.setTime(lastLaunchDate);
-            calLastDayItem.add(Calendar.MINUTE, numberMinutesInADay * (item.delay + item.duration - 1));
+            calLastDayItem.add(Calendar.MINUTE, NumberMinutesInADay * item.delay);
             if (calNow.before(calLastDayItem)) {
                 launchScheduledJob(item, lastLaunchDate);
             }
@@ -57,27 +57,22 @@ public class AutoStartService extends Service {
         Calendar calNow = Calendar.getInstance();
         Calendar calNextLaunchDate = Calendar.getInstance();
         calNextLaunchDate.setTime(lastLaunchDate);
-        calNextLaunchDate.add(Calendar.MINUTE, numberMinutesInADay * item.delay);
-
-        for (int i = 0; i < item.duration; i++) {
-            if (calNow.after(calNextLaunchDate)) {
-                continue;
-            }
-            ComponentName serviceComponent = new ComponentName(this, CountdownJobService.class);
-            JobInfo.Builder builder = new JobInfo.Builder(jobId, serviceComponent);
-            jobId++;
-            long delayBeforeLaunch = Math.max(0, calNextLaunchDate.getTimeInMillis() - calNow.getTimeInMillis());
-            PersistableBundle extras = new PersistableBundle(3);
-            extras.putInt(CountdownJobService.idKey, item.id);
-            extras.putInt(CountdownJobService.dayKey, i + 1);
-            extras.putInt(CountdownJobService.dayMaxKey, item.duration);
-            builder.setExtras(extras);
-            builder.setMinimumLatency(delayBeforeLaunch);
-            builder.setOverrideDeadline(delayBeforeLaunch);
-
-            jobScheduler.schedule(builder.build());
-            calNextLaunchDate.add(Calendar.MINUTE, numberMinutesInADay);
+        calNextLaunchDate.add(Calendar.MINUTE, NumberMinutesInADay * item.delay);
+        if (calNow.after(calNextLaunchDate)) {
+            return;
         }
+        ComponentName serviceComponent = new ComponentName(this, CountdownJobService.class);
+        JobInfo.Builder builder = new JobInfo.Builder(jobId, serviceComponent);
+        jobId++;
+        long delayBeforeLaunch = Math.max(0, calNextLaunchDate.getTimeInMillis() - calNow.getTimeInMillis());
+        PersistableBundle extras = new PersistableBundle(2);
+        extras.putInt(CountdownJobService.idKey, item.id);
+        extras.putInt(CountdownJobService.dayMaxKey, item.duration);
+        builder.setExtras(extras);
+        builder.setMinimumLatency(delayBeforeLaunch);
+        builder.setOverrideDeadline(delayBeforeLaunch);
+
+        jobScheduler.schedule(builder.build());
     }
 
     @Override

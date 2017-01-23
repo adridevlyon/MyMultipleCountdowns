@@ -85,8 +85,7 @@ public class HeaderManager {
         SharedPreferencesHelper.saveNotificationTime(context, date);
         setNotificationTime(date);
         if (lastLaunchDate != null) {
-            saveLastLaunchDay(context, lastLaunchDate);
-            displaySnackbar(context, context.getString(R.string.countdown_updated));
+            displaySnackbar(context, context.getString(R.string.notification_updated));
         }
     }
 
